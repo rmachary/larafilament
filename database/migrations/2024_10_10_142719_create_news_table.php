@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->binary('image')->nullable(); // Image URL
+            $table->string('image')->nullable(); // Image URL
             $table->date('published_at');
             $table->timestamps();
         });

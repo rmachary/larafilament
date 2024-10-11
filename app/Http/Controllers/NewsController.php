@@ -33,38 +33,60 @@ class NewsController extends Controller
     {
         return view('news.create');
     }
-
     public function store(Request $request)
-{
-    // Validate the input data
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'content' => 'required|string',
-        'image' => 'nullable|mimes:jpeg,png,jpg,gif',  // Validate image type
-        'published_at' => 'required|date',
-    ]);
+    {
+        // Validate the input data
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable',  // Validate image type
+            'published_at' => 'required|date',
+        ]);
 
-    // Create a new instance of the News model
-    $news = new News();
-    $news->title = $request->title;
-    $news->content = $request->content;
 
-    // Handle file upload if an image is provided
-    if ($request->hasFile('image')) {
-        // Get the image content as a binary string
-        $imageContent = file_get_contents($request->file('image')->getRealPath());
+        // Create a new instance of the News model
+        $news = new News();
+        $news->title = $request->title;
+        $news->content = $request->content;
+        $news->image = $request->image;
+        $news->published_at = $request->published_at;
 
-        // Save the binary content to the database
-        $news->image = $imageContent;  // Store the image as binary data
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/news/';
+            $file->move($path, $filename);
+            $news->image = $path . $filename;
+        }
+
+        $news->save();
+
+        return redirect()->route('news.index')->with('success', 'News created successfully.');
     }
 
-    // Save the publication date and other fields
-    $news->published_at = $request->published_at;
-    $news->save();  // Save the news entry to the database
 
-    // Redirect to the index page with a success message
-    return redirect()->route('news.index')->with('success', 'News created successfully.');
-}
+    // Create a new instance of the News model
+    // $news = new News();
+    // $news->title = $request->title;
+    // $news->content = $request->content;
+
+    // Handle file upload if an image is provided
+    // if ($request->hasFile('image')) {
+    //     // Get the image content as a binary string
+    //     $imageContent = file_get_contents($request->file('image')->getRealPath());
+
+    //     // Save the binary content to the database
+    //     $news->image = $imageContent;  // Store the image as binary data
+    // }
+
+    // // Save the publication date and other fields
+    // $news->published_at = $request->published_at;
+    // $news->save();  // Save the news entry to the database
+
+    // // Redirect to the index page with a success message
+    // return redirect()->route('news.index')->with('success', 'News created successfully.');}
 
 
 

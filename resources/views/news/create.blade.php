@@ -29,7 +29,7 @@
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="file" name="image" class="form-control" id="image" accept=".jpg, .jpeg, .png">
+                <input type="file" name="image" class="form-control" id="image" >
                 <small class="form-text text-muted">Recommended size: 800x500px</small>
             </div>
 
