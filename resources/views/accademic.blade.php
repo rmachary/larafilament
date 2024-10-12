@@ -8,12 +8,10 @@
 <header class="py-5">
     <div class="container px-5">
         <div class="row justify-content-center">
-            <div class="col-lg-8 col-xxl-6">
-                <div class="text-center my-5">
-                    <h1 class="fw-bolder mb-3">Ourss mission is to make building websites easier for everyone.</h1>
-                    <p class="lead fw-normal text-muted mb-4">Start Bootstrap was built on the idea that quality, functional website templates and themes should be available to everyone. Use our open source, free products, or support us by purchasing one of our premium products or services.</p>
-                    <a class="btn btn-primary btn-lg" href="#scroll-target">Read our story</a>
-                </div>
+            <div class="col-lg-8 >
+                <div class="text-center mb-5 ">
+                    <h1 class="fw-bolder mb-3">Our Accademic Performance.</h1>
+                    <p class="lead fw-normal text-muted mb-2" align="justify">Bethsaida Secondary School stands as a beacon of hope for orphaned children, providing them with a nurturing environment where they can excel academically and build a brighter future. Despite the many challenges they face, our students have consistently achieved impressive academic results, proving that with the right support, they can overcome any obstacle. This remarkable performance reflects the dedication of both our students and staff, and the profound impact that education has on transforming lives. By supporting Bethsaida, you are not just donating to a school—you are empowering orphaned children to break the cycle of poverty and build successful futures. Your generosity can truly change lives.  </div>
             </div>
         </div>
     </div>
@@ -41,7 +39,7 @@
             </div>
         </div>
     </div>
-</section>
+{{-- </section>
 <!-- Team members section-->
 <section class="py-5 bg-light">
     <div class="container px-5 my-5">
@@ -78,8 +76,8 @@
                     <div class="fst-italic text-muted">CTO</div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> --}}
+    {{-- </div> --}}
 </section>
 </main>
 

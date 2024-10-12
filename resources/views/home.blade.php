@@ -165,21 +165,51 @@
                             </div>
                             <div class="ms-xl-4">
                                 <div class="input-group mb-2">
-                                    <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
-                                    <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
+                                    <form action="{{ route('newsletter.subscribe') }}" method="POST">
+                                        @csrf
+                                        <div class="input-group mb-2">
+                                            <input class="form-control" type="email"  name="email" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" required />
+                                            <button class="btn btn-outline-light" id="button-newsletter" type="submit">Sign up</button>
+                                        </div>
+                                        <!-- Success message -->
+                                            @if (session('success'))
+                                            <script>
+                                                Swal.fire({
+                                                    title: 'Success!',
+                                                    text: '{{ session('success') }}',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'OK'
+                                                });
+                                            </script>
+                                        @endif
+
+                                        <!-- Error message -->
+                                        @if ($errors->any())
+                                            <script>
+                                                Swal.fire({
+                                                    title: 'Error!',
+                                                    text: '{{ $errors->first() }}',
+                                                    icon: 'error',
+                                                    confirmButtonText: 'OK'
+                                                });
+                                            </script>
+                                        @endif
+                                    </form>
                                 </div>
                                 <div class="small text-white-50">We care about privacy, and will never share your data.</div>
                             </div>
                         </div>
                     </aside>
                 </div>
+
+
             </section>
         </main>
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; bethsaida Secondary School - 2024</div></div>
+                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Bethsaida Secondary School {{ date('Y') }}</div></div>
                     <div class="col-auto">
                         <a class="link-light small" href="#!">Privacy</a>
                         <span class="text-white mx-1">&middot;</span>
