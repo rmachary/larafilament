@@ -33,38 +33,60 @@ class NewsController extends Controller
     {
         return view('news.create');
     }
+    // public function store(Request $request)
+    // {
+    //     // Validate the input data
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //         'image' => 'nullable',  // Validate image type
+    //         'published_at' => 'required|date',
+    //     ]);
+
+
+    //     // Create a new instance of the News model
+    //     $news = new News();
+    //     $news->title = $request->title;
+    //     $news->content = $request->content;
+    //     $news->image = $request->image;
+    //     $news->published_at = $request->published_at;
+
+
+    //     if ($request->hasFile('image')) {
+    //         $file = $request->file('image');
+    //         $extension = $file->getClientOriginalExtension();
+    //         $filename = time() . '.' . $extension;
+    //         $path = '/storage/new_image/';
+    //         $file->move($path, $filename);
+    //         $news->image = $path . $filename;
+    //     }
+
+    //     $news->save();
+
+    //     return redirect()->route('news.index')->with('success', 'News created successfully.');
+    // }
+
     public function store(Request $request)
     {
-        // Validate the input data
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'image' => 'nullable',  // Validate image type
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'image' => 'nullable|image|max:2048',
             'published_at' => 'required|date',
         ]);
 
-
-        // Create a new instance of the News model
-        $news = new News();
-        $news->title = $request->title;
-        $news->content = $request->content;
-        $news->image = $request->image;
-        $news->published_at = $request->published_at;
-
-
+        // Handle image upload to 'storage/new_image'
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $path = '/storage/new_image/';
-            $file->move($path, $filename);
-            $news->image = $path . $filename;
+            $imagePath = $request->file('image')->store('new_image', 'storage');
+            $validatedData['image'] = $imagePath;
         }
 
-        $news->save();
+        News::create($validatedData);
 
-        return redirect()->route('news.index')->with('success', 'News created successfully.');
+        return redirect()->route('news.index')->with('success', 'News created successfully');
     }
+
+
 
 
     public function show($id)
@@ -77,35 +99,58 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $news = News::findOrFail($id);
+    // public function update(Request $request, string $id)
+    // {
+    //     $news = News::findOrFail($id);
 
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'published_at' => 'required|date',
-        ]);
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         'published_at' => 'required|date',
+    //     ]);
 
-        $news->title = $request->title;
-        $news->content = $request->content;
-        $news->image = $request->image;
+    //     $news->title = $request->title;
+    //     $news->content = $request->content;
+    //     $news->image = $request->image;
 
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($news->image) {
-                Storage::disk('public')->delete($news->image);
-            }
-            $news->image = $request->file('image')->store('news_images', 'public');
-        }
+    //     if ($request->hasFile('image')) {
+    //         // Delete the old image if it exists
+    //         if ($news->image) {
+    //             Storage::disk('public')->delete($news->image);
+    //         }
+    //         $news->image = $request->file('image')->store('news_images', 'public');
+    //     }
 
-        $news->published_at = $request->published_at;
-        $news->save();
+    //     $news->published_at = $request->published_at;
+    //     $news->save();
 
-        return redirect()->route('news.index')->with('success', 'News updated successfully.');
+    //     return redirect()->route('news.index')->with('success', 'News updated successfully.');
 
+    // }
+
+    public function update(Request $request, News $news)
+{
+    $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+        'image' => 'nullable|image|max:2048',
+        'published_at' => 'required|date',
+    ]);
+
+    // Handle image upload to 'storage/new_image' if a new image is provided
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('new_image', 'storage');
+        $validatedData['image'] = $imagePath;
     }
+
+    $news->update($validatedData);
+
+    return redirect()->route('news.index')->with('success', 'News updated successfully');
+}
+
+
+
 
     /**
      * Remove the specified resource from storage.

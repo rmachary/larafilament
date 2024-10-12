@@ -66,8 +66,8 @@
             <div class="col-md-8">
                 @foreach ($newsItems as $new)
                     <div class="news-item">
-                        {{-- <img src="{{ $new->image ? url('storage/' . $new->image) : 'https://via.placeholder.com/800x300' }}" alt="News Image" class="news-image"> --}}
-                        <img src="/storage/new_image/{{ $new->image }}" width="500px">
+                        <img src="{{ $new->image ? url('storage/new_image' . $new->image) : 'https://via.placeholder.com/800x300' }}" alt="News Image" class="news-image">
+                        {{-- <img src="/storage/new_image/{{ $new->image }}" width="500px"> --}}
 
                         <div class="p-3">
                             <h2>{{ $new->title }}</h2>
@@ -83,8 +83,7 @@
                 <h3>Recent Updates</h3>
                 <ul class="list-group">
                     @foreach ($newsItems->take(15) as $new)
-                        <li class="list-group-item"><a href="{{ route('news.index', $new->id) }}">{{ Str::limit($new->title) }}</a></li>
-                    @endforeach
+                        <li class="list-group-item"><a href="{{ route('news.show', $new->id)}}">{{ Str::limit($new->title) }}</a></li>                    @endforeach
                 </ul>
             </div>
         </div>
