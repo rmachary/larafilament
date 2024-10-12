@@ -11,9 +11,9 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+        <link href="{{ asset('files/css/styles.css') }}" rel="stylesheet" />
         <!-- Link to a JavaScript file-->
-        <script src="{{ asset('js/scripts.js') }}"></script>
+        <script src="{{ asset('files/js/scripts.js') }}"></script>
 
     </head>
     <body class="d-flex flex-column h-100">
