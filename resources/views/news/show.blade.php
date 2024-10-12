@@ -64,9 +64,10 @@
         @endif
         <div class="row">
             <div class="news-item">
-            <h2>{{ $news->title }}</h2>
-            <img src="{{ asset('storage/' . $news->image) }}" alt="News Image">
+                <br>
 
+            <img src="{{ asset('storage/' . $news->image) }}" alt="News Image" style="height: 300px; width: auto;" >
+            <h2>{{ $news->title }}</h2>
             {{-- <img src="{{ asset('storage/' . $news->image) }}" alt="News Image"> --}}
             <p>{{ $news->content }}</p>
             <p class="text-muted">Published on {{ $news->published_at->format('F j, Y') }}</p>

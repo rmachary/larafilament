@@ -66,7 +66,7 @@
             <div class="col-md-8">
                 @foreach ($newsItems as $new)
                     <div class="news-item">
-                        <img src="{{ $new->image ? url('storage/new_image' . $new->image) : 'https://via.placeholder.com/800x300' }}" alt="News Image" class="news-image">
+                        <img src="{{ $new->image ? url('storage/' . $new->image) : 'https://via.placeholder.com/800x300' }}" alt="News Image" class="news-image">
                         {{-- <img src="/storage/new_image/{{ $new->image }}" width="500px"> --}}
 
                         <div class="p-3">

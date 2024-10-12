@@ -68,16 +68,20 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|max:2048|mimes:jpg,jpeg,png',
             'published_at' => 'required|date',
         ]);
 
+        // dd('succsuccess');
+
+
         // Handle image upload to 'storage/new_image'
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('new_image', 'storage');
+            $imagePath = $request->file('image')->store('new_image', 'public');
             $validatedData['image'] = $imagePath;
         }
 
@@ -94,6 +98,9 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
         return view('news.show', compact('news'));
     }
+
+
+//test
 
 
     /**
