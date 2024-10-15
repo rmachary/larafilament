@@ -32,7 +32,8 @@
                             <li class="nav-item"><a class="nav-link" href="{{route('publication')}}">Publication</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{route('news.index')}}">News</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{route('donation')}}">Donation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{route('faq')}}">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://bethsaida.ac.tz/webmail">Mail</a></li>
+
 
 
 
