@@ -70,7 +70,7 @@
             <h2>{{ $news->title }}</h2>
             {{-- <img src="{{ asset('storage/' . $news->image) }}" alt="News Image"> --}}
             <p>{{ $news->content }}</p>
-            <p class="text-muted">Published on {{ $news->published_at->format('F j, Y') }}</p>
+            <p class="text-muted">Published by {{ $news->published_at->format('F j, Y') }}</p>
             <a href="{{ route('news.index') }}" class="btn btn-custom">Back to News</a>
         </div>
         </div>
