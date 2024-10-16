@@ -25,7 +25,7 @@ Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
+Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
