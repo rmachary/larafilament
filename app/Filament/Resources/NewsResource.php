@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ContactResource\Pages;
-use App\Filament\Resources\ContactResource\RelationManagers;
-use App\Models\Contact;
+use App\Filament\Resources\NewsResource\Pages;
+use App\Filament\Resources\NewsResource\RelationManagers;
+use App\Models\News;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ContactResource extends Resource
+class NewsResource extends Resource
 {
-    protected static ?string $model = Contact::class;
+    protected static ?string $model = News::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,10 +23,10 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('email')->email()->required(),
-                Forms\Components\TextInput::make('phone')->tel()->required(),
-                Forms\Components\TextInput::make('message')->required(),
+                Forms\Components\TextInput::make('title')->required(),
+                Forms\Components\TextInput::make('content')->required(),
+                Forms\Components\fileupload::make('image')->required(),
+                Forms\Components\TextInput::make('published_at')->required(),
             ]);
     }
 
@@ -34,16 +34,13 @@ class ContactResource extends Resource
     {
         return $table
             ->columns([
-                //
-                Tables\Columns\TextColumn::make('name'),
-                // User email
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('message'),
+                Tables\Columns\Layout\Stack::make([
 
-                // ...
-
-
+                    Tables\Columns\TextColumn::make('title') ->label('Title'),
+                    Tables\Columns\TextColumn::make('content')->label('Content'),
+                    Tables\Columns\TextColumn::make('image')->label('Image'),
+                    Tables\Columns\TextColumn::make('published_at'),
+                ])
             ])
             ->filters([
                 //
@@ -51,7 +48,6 @@ class ContactResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -70,9 +66,9 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'index' => Pages\ListNews::route('/'),
+            'create' => Pages\CreateNews::route('/create'),
+            'edit' => Pages\EditNews::route('/{record}/edit'),
         ];
     }
 }
