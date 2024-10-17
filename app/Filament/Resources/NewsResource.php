@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Filament\Resources;
 
+namespace App\Filament\Resources;
 use App\Filament\Resources\NewsResource\Pages;
 use App\Filament\Resources\NewsResource\RelationManagers;
 use App\Models\News;
@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
 
 class NewsResource extends Resource
 {
@@ -38,7 +39,7 @@ class NewsResource extends Resource
 
                     Tables\Columns\TextColumn::make('title') ->label('Title'),
                     Tables\Columns\TextColumn::make('content')->label('Content'),
-                    Tables\Columns\TextColumn::make('image')->label('Image'),
+                    Tables\Columns\ImageColumn::make('image')->label('Image'),
                     Tables\Columns\TextColumn::make('published_at'),
                 ])
             ])
